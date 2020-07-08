@@ -7,3 +7,4 @@ Aplicação disponível em http://andredjango.herokuapp.com/
 [![codecov](https://codecov.io/gh/andremenezees/curso-django/branch/master/graph/badge.svg)](https://codecov.io/gh/andremenezees/curso-django)
 [![Updates](https://pyup.io/repos/github/andremenezees/curso-django/shield.svg)](https://pyup.io/repos/github/andremenezees/curso-django/)
 [![Python 3](https://pyup.io/repos/github/andremenezees/curso-django/python-3-shield.svg)](https://pyup.io/repos/github/andremenezees/curso-django/)
+
