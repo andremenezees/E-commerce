@@ -1,7 +1,7 @@
-# Curso-django
-Código desenvolvido no módulo de Django do [Site Python Pro](www.python.pro.br)
+# E-commerce
+Primeiro E-commerce desenvolvido através da framework Django
 
-Aplicação disponível em http://andredjango.herokuapp.com/
+Aplicação disponível em 
 
 [![Build Status](https://travis-ci.com/andremenezees/curso-django.svg?branch=master)](https://travis-ci.com/andremenezees/curso-django)
 [![codecov](https://codecov.io/gh/andremenezees/curso-django/branch/master/graph/badge.svg)](https://codecov.io/gh/andremenezees/curso-django)
