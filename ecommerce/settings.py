@@ -16,7 +16,9 @@ import os
 from functools import partial
 
 import dj_database_url
+import sentry_sdk
 from decouple import config, Csv
+from sentry_sdk.integrations.django import DjangoIntegration
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -31,6 +33,23 @@ DEBUG = config('DEBUG', cast=bool)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
+# If True, users can register
+REGISTRATION_OPEN = True
+# One-week activation window; you may, of course, use a different value.
+ACCOUNT_ACTIVATION_DAYS = 7
+# If True, the user will be automatically logged in.
+REGISTRATION_AUTO_LOGIN = True
+# The page you want users to arrive at after they successfully log in
+LOGIN_REDIRECT_URL = '/'
+# The page users are directed to if they are not logged in,
+# and are trying to access pages requiring authentication
+LOGIN_URL = '/accounts/login/'
+
+PASSWORD_HASHERS = (
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+)
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -42,6 +61,8 @@ INSTALLED_APPS = [
     'collectfast',
     'django.contrib.staticfiles',
     'ecommerce.base',
+    'ecommerce.registros',
+    'registration',
 ]
 
 MIDDLEWARE = [
@@ -74,6 +95,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ecommerce.wsgi.application'
 
+# config django tooblar
+
+INTERNAL_IPS = config('INTERNAL IPS', cast=Csv(), default='127.0.0.1')
+
+if DEBUG:
+    INSTALLED_APPS.append('debug_toolbar')
+    MIDDLEWARE.insert(0, 'debug_toolbar.middleware.DebugToolbarMiddleware')
+
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
@@ -100,6 +129,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {'min_length': 6, }
     },
 ]
 
@@ -164,3 +197,12 @@ if AWS_ACCESS_KEY_ID:
 
     INSTALLED_APPS.append('s3_folder_storage')
     INSTALLED_APPS.append('storages')
+
+SENTRY_DSN = config('SENTRY_DSN', default=None)
+
+if SENTRY_DSN:
+    sentry_sdk.init(
+        dsn="https://8e556e08134040dcbf98ed21b02addde@o408987.ingest.sentry.io/5377717",
+        integrations=[DjangoIntegration()],
+
+    )
