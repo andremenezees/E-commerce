@@ -1,7 +1,4 @@
-
 from django.urls import path
-
-from ecommerce.base import views
 from ecommerce.base.views import HomeView, ItemDetailView, add_to_cart, remove_from_cart, OrderSumarryView, checkout
 
 app_name = 'base'
