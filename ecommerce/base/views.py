@@ -16,6 +16,11 @@ class HomeView(ListView):
     template_name = "base/home.html"
 
 
+class OrderSumarryView(DetailView):
+    model = Order
+    template_name = 'base/order_sumary.html'
+
+
 class ItemDetailView(DetailView):
     model = Item
     template_name = "base/product.html"
