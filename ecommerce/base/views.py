@@ -1,7 +1,11 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from django.views.generic import ListView, DetailView
+
 
 from ecommerce.base.models import Item, OrderItem, Order
 
@@ -16,9 +20,19 @@ class HomeView(ListView):
     template_name = "base/home.html"
 
 
-class OrderSumarryView(DetailView):
-    model = Order
-    template_name = 'base/order_sumary.html'
+class OrderSummaryView(LoginRequiredMixin, DetailView):
+
+    def get(self, *args, **kwargs):
+        try:
+            order = Order.objects.get(user=self.request.user, ordered=False)
+            context = {
+                'object': order
+            }
+            return render(self.request, 'base/order_summary.html', context)
+
+        except ObjectDoesNotExist:
+            messages.error(self.request, "You do not an active order")
+            return redirect("/")
 
 
 class ItemDetailView(DetailView):
@@ -26,6 +40,7 @@ class ItemDetailView(DetailView):
     template_name = "base/product.html"
 
 
+@login_required
 def add_to_cart(request, slug):
     item = get_object_or_404(Item, slug=slug)
     order_item, created = OrderItem.objects.get_or_create(
@@ -54,6 +69,7 @@ def add_to_cart(request, slug):
     return redirect("base:product", slug=slug)
 
 
+@login_required
 def remove_from_cart(request, slug):
     item = get_object_or_404(Item, slug=slug)
     order_qs = Order.objects.filter(
