@@ -23,7 +23,7 @@ class Item(models.Model):
     discount_price = models.FloatField(blank=True, null=True)
     category = models.CharField(choices=CATEGORY_CHOICES, max_length=2, default='S')
     label = models.CharField(choices=LABEL_CHOICES, max_length=1, default='P')
-    slug = models.SlugField(default='test-product')
+    slug = models.SlugField(unique=True)
     description = models.TextField(default="Text description asdoaseuwqeuqwheqwuheqkdokasokd adiasdasue huashud")
 
     def __str__(self):
