@@ -3,7 +3,7 @@ Primeiro E-commerce desenvolvido através da framework Django
 
 Esta aplicação foi desenvolvida a partir do tutorial: https://www.youtube.com/watch?v=YZvRrldjf1Y
 
-Aplicação disponível em https://ecoomercedjango.herokuapp.com/
+Aplicação disponível em https://ecoomercedjango.herokuapp.com/ 
 
 [![Build Status](https://travis-ci.com/andremenezees/E-commerce.svg?branch=master)](https://travis-ci.com/andremenezees/E-commerce)
 [![codecov](https://codecov.io/gh/andremenezees/curso-django/branch/master/graph/badge.svg)](https://codecov.io/gh/andremenezees/curso-django)
