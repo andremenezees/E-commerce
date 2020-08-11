@@ -175,7 +175,8 @@ class Refund(models.Model):
 
 def userprofile_receiver(sender, instance, created, *args, **kwargs):
     if created:
-        userprofile = UserProfile.objects.create(user=instance)  # flake8: noqa: F841
+        # flake8: noqa
+        userprofile = UserProfile.objects.create(user=instance)
 
 
 post_save.connect(userprofile_receiver, sender=User)
