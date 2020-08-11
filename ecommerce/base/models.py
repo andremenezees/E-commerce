@@ -171,10 +171,3 @@ class Refund(models.Model):
 
     def __str__(self):
         return f"{self.pk}"
-
-
-def userprofile_receiver(sender, instance, created, *args, **kwargs):
-    if created:
-        # flake8: noqa
-        userprofile = UserProfile.objects.create(user=instance)
-        post_save.connect(userprofile_receiver, sender=User)
