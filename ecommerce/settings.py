@@ -51,6 +51,7 @@ PASSWORD_HASHERS = (
 )
 
 # Application definition
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -63,6 +64,8 @@ INSTALLED_APPS = [
     'ecommerce.base',
     'ecommerce.registros',
     'registration',
+    'crispy_forms',
+    'django_countries',
 ]
 
 MIDDLEWARE = [
@@ -186,7 +189,8 @@ if AWS_ACCESS_KEY_ID:
     STATICFILES_STORAGE = 's3_folder_storage.s3.StaticStorage'
     STATIC_S3_PATH = "static"
     STATIC_ROOT = f'/{STATIC_S3_PATH}/'
-    STATIC_URL = f'//s3.amazonaws.com/{AWS_STORAGE_BUCKET_NAME}/{STATIC_S3_PATH}/'
+    STATIC_URL = f'//{AWS_STORAGE_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/{STATIC_S3_PATH}/'
+    # STATIC_URL = f'//s3.amazonaws.com/{AWS_STORAGE_BUCKET_NAME}/{STATIC_S3_PATH}/'
     ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 
     # Uploaded Media Folder
@@ -206,3 +210,5 @@ if SENTRY_DSN:
         integrations=[DjangoIntegration()],
 
     )
+STRIPE_SECRET_KEY = config('STRIPE_LIVE_SECRET_KEY')
+STRIPE_PUBLIC_KEY = config('STRIPE_LIVE_PUBLIC_KEY')

@@ -21,6 +21,10 @@ django-debug-toolbar = "*"
 sentry-sdk = "*"
 django-registration-redux = "*"
 django-ordered-model = "*"
+django-countries = "*"
+django-crispy-forms = "*"
+stripe = "*"
+pillow = "*"
 
 [requires]
 python_version = "3.8"
