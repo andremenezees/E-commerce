@@ -1,4 +1,3 @@
-from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
@@ -176,7 +175,7 @@ class Refund(models.Model):
 
 def userprofile_receiver(sender, instance, created, *args, **kwargs):
     if created:
-        userprofile = UserProfile.objects.create(user=instance)
+        userprofile = UserProfile.objects.create(user=instance)  # flake8: noqa: F841
 
 
 post_save.connect(userprofile_receiver, sender=User)
