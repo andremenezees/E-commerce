@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models.signals import post_save
 from django.urls import reverse
 from django_countries.fields import CountryField
 
@@ -170,3 +171,12 @@ class Refund(models.Model):
 
     def __str__(self):
         return f"{self.pk}"
+
+
+# flake8: noqa: F841
+def userprofile_receiver(sender, instance, created, *args, **kwargs):
+    if created:
+        userprofile = UserProfile.objects.create(user=instance)
+
+
+post_save.connect(userprofile_receiver, sender=User)
